@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+psycopg2
+langchain
+crewai
+ollama
+pydantic
+python-dotenv
+setuptools
+sqlalchemy
+pandas
