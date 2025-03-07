@@ -1,5 +1,5 @@
 import json
-from config import global_conf
+from config.global_conf import global_conf
 from services.postgres import postgres_service
 
 
@@ -15,12 +15,25 @@ class MetadataCollector:
         return cls._instance
 
     def _initialize(self):
-        if (global_conf("DB_EGINE") == "postgres"):
-            schema = global_conf('DB_POSTGRES_DEFAULT_SCHEMA')
+        if (global_conf.get("DB_EGINE") == "postgres"):
+            schema = global_conf.get('DB_POSTGRES_DEFAULT_SCHEMA')
             self._infos_schema = f"""
-                                    SELECT table_name, column_name, data_type 
-                                    FROM information_schema.columns 
-                                    WHERE table_schema = '{schema}'
+                                    SELECT 
+                                        cols.table_schema,
+                                        cols.table_name,
+                                        cols.column_name,
+                                        cols.is_nullable,
+                                        cols.data_type,
+                                        pgd.description AS column_comment
+                                    FROM information_schema.columns AS cols
+                                    LEFT JOIN pg_catalog.pg_statio_all_tables AS st ON 
+                                        cols.table_schema = st.schemaname 
+                                        AND cols.table_name = st.relname
+                                    LEFT JOIN pg_catalog.pg_description AS pgd ON 
+                                        pgd.objoid = st.relid 
+                                        AND pgd.objsubid = cols.ordinal_position
+                                    WHERE cols.table_schema = '{schema}'
+                                    ORDER BY cols.table_name, cols.ordinal_position
                                 """
             self.extract_schema_from_postgres()
         else:
@@ -37,16 +50,24 @@ class MetadataCollector:
         
         cursor.execute(self._infos_schema)
         
-        for table, column, data_type in cursor.fetchall():
-            if table not in self._schema:
-                self._schema[table] = []
-            self._schema[table].append({"column": column, "type": data_type})
+        for table_schema, table_name, column_name, is_nullable, data_type, column_comment in cursor.fetchall():
+            table_path = f"{table_schema}.{table_name}"
+            if table_path not in self._schema:
+                self._schema[table_path] = []
+            self._schema[table_path].append(
+                {
+                    "column_name": column_name,
+                    "is_nullable": is_nullable,
+                    "data_type": data_type,
+                    "column_comment": column_comment
+                 }
+                )
         
         cursor.close()
         conn.close()
 
         # Save in cache
-        with open(global_conf("DATA_SCHEMA_CACHE"), "w") as f:
+        with open(global_conf.get("DATA_SCHEMA_CACHE"), "w") as f:
             json.dump(self._schema, f, indent=4)
         
     def get_schema(self):

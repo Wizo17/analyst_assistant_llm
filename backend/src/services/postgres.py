@@ -1,5 +1,5 @@
 import psycopg2
-from config import global_conf
+from config.global_conf import global_conf
 from utils.logger import log_message
 
 

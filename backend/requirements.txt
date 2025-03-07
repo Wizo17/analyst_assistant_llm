@@ -1,11 +1,14 @@
+python-dotenv
+setuptools
 fastapi
 uvicorn
 psycopg2
 langchain
-crewai
+langchain-community
+langchain-ollama
+langchain-openai
 ollama
 pydantic
-python-dotenv
-setuptools
 sqlalchemy
 pandas
+crewai

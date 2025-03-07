@@ -16,9 +16,12 @@ class Configuration:
         load_dotenv()
         
         self._config = {
+            "LLM_PROVIDER": os.getenv("LLM_PROVIDER"),
             "LLM_MODEL": os.getenv("LLM_MODEL"),
             "DB_EGINE": os.getenv("DB_EGINE"),
             "DATA_SCHEMA_CACHE": os.getenv("DATA_SCHEMA_CACHE"),
+
+            "OPENAI_API_KEY": os.getenv("OPENAI_API_KEY"),
 
             "DB_POSTGRES_HOST": os.getenv("DB_POSTGRES_HOST"),
             "DB_POSTGRES_PORT": os.getenv("DB_POSTGRES_PORT"),
@@ -46,3 +49,4 @@ class Configuration:
 
 # Create a single instance for import
 global_conf = Configuration()
+
