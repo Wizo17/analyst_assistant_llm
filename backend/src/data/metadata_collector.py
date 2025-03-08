@@ -17,7 +17,7 @@ class MetadataCollector:
 
 
     def _initialize(self):
-        if (global_conf.get("DB_EGINE") == "postgres"):
+        if (global_conf.get("DB_EGINE") == "PostgreSQL"):
             schema = global_conf.get('DB_POSTGRES_DEFAULT_SCHEMA')
             self._infos_schema = f"""
                                     SELECT 
