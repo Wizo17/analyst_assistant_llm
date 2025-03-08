@@ -2,6 +2,7 @@ import json
 import psycopg2
 from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
+from langchain_anthropic import ChatAnthropic
 from langchain.prompts import PromptTemplate
 from config.global_conf import global_conf
 from data.metadata_collector import db_metadata
@@ -15,10 +16,15 @@ class QueryAnalyzer:
     db_schema = None
 
     def __init__(self):
+        # TODO catch error if failed
         if (global_conf.get("LLM_PROVIDER") == "openai"):
             OPENAI_API_KEY = global_conf.get("OPENAI_API_KEY")
             self.llm = ChatOpenAI(model=global_conf.get("LLM_MODEL"))
         
+        elif (global_conf.get("LLM_PROVIDER") == "anthropic"):
+            ANTHROPIC_API_KEY = global_conf.get("ANTHROPIC_API_KEY")
+            self.llm = ChatAnthropic(model=global_conf.get("LLM_MODEL"))
+
         elif (global_conf.get("LLM_PROVIDER") == "ollama"):
             self.llm = ChatOllama(model=global_conf.get("LLM_MODEL"))
         
