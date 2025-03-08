@@ -50,6 +50,7 @@ class QueryAnalyzer:
         """
         Analyzes the user query and identifies relevant tables.
         """
+        # TODO Gerer une seule session
         prompt = PromptTemplate(
             input_variables=["query", "schema"],
             template="""

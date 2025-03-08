@@ -8,11 +8,13 @@ class MetadataCollector:
     _infos_schema = None
     _schema = {}
 
+
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(MetadataCollector, cls).__new__(cls)
             cls._instance._initialize()
         return cls._instance
+
 
     def _initialize(self):
         if (global_conf.get("DB_EGINE") == "postgres"):
@@ -35,12 +37,12 @@ class MetadataCollector:
                                     WHERE cols.table_schema = '{schema}'
                                     ORDER BY cols.table_name, cols.ordinal_position
                                 """
-            self.extract_schema_from_postgres()
+            self._extract_schema_from_postgres()
         else:
             raise Exception("Sorry, please define query engine") 
     
 
-    def extract_schema_from_postgres(self):
+    def _extract_schema_from_postgres(self):
         """
         Retrieves table structure from PostgreSQL and updates cache.
         """
@@ -70,8 +72,15 @@ class MetadataCollector:
         with open(global_conf.get("DATA_SCHEMA_CACHE"), "w") as f:
             json.dump(self._schema, f, indent=4)
         
+    
+
     def get_schema(self):
         return self._schema
     
+
+    def reload_schema(self):
+        self._extract_schema_from_postgres()
+        return self.get_schema()
+
 
 db_metadata = MetadataCollector()
