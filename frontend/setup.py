@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="analyst_assistant_llm_api",
+    name="analyst_assistant_llm_front",
     version="1.0.0",
     author="William ZOUNON",
     author_email="williamzounon@gmail.com",
-    description="Assistant that uses LLMs to provide information from the database. Uses LangChain, Ollama, Python, Postgres, FastAPI.",
+    description="Assistant that uses LLMs to provide information from analyst_assistant_llm_api with Streamlit.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url="https://github.com/Wizo17/analyst_assistant_llm",
@@ -18,22 +18,7 @@ setup(
     ],
     python_requires='>=3.7',
     install_requires=[
-        "python-dotenv",
-        "setuptools",
-        "fastapi",
-        "uvicorn",
-        "psycopg2",
-        "langchain",
-        "langchain-community",
-        "langchain-ollama",
-        "langchain-openai",
-        "langchain-anthropic",
-        "langgraph",
-        "ollama",
-        "pydantic",
-        "sqlalchemy",
-        "pandas",
-        "sqlparse"
+        "streamlit",
     ],
     entry_points={
         'console_scripts': [

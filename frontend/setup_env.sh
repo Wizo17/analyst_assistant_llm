@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Creating the virtual environment for api."
+echo "Creating the virtual environment for frontend."
 python3 -m venv venv
 
 echo "Environment activation."
