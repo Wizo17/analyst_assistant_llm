@@ -40,7 +40,7 @@ class PostgresService:
             )
             #log_message("INFO", "Successful PostgreSQL connection!")
         except Exception as e:
-            log_message("ERROR", f"Connection to postgres failed : {e}")
+            log_message("ERROR", f"Connection to postgres failed : {str(e)}")
 
 
     def get_postgres_connection(self):

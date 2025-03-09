@@ -25,6 +25,8 @@ class Configuration:
             "LLM_MODEL": os.getenv("LLM_MODEL"),
             "DB_EGINE": os.getenv("DB_EGINE"),
             "DATA_SCHEMA_CACHE": os.getenv("DATA_SCHEMA_CACHE"),
+            "DATA_FILE_EXPORT_PATH": os.getenv("DATA_FILE_EXPORT_PATH"),
+            "MAX_ROWS_TO_LLM": os.getenv("MAX_ROWS_TO_LLM"),
 
             "OPENAI_API_KEY": os.getenv("OPENAI_API_KEY"),
             "ANTHROPIC_API_KEY": os.getenv("ANTHROPIC_API_KEY"),
@@ -35,6 +37,9 @@ class Configuration:
             "DB_POSTGRES_USER": os.getenv("DB_POSTGRES_USER"),
             "DB_POSTGRES_PASSWORD": os.getenv("DB_POSTGRES_PASSWORD"),
             "DB_POSTGRES_DEFAULT_SCHEMA": os.getenv("DB_POSTGRES_DEFAULT_SCHEMA"),
+
+            "API_HOST": os.getenv("API_HOST"),
+            "API_PORT": os.getenv("API_PORT"),
         }
     
     
