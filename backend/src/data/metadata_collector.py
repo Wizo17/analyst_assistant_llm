@@ -1,15 +1,18 @@
 import json
 from config.global_conf import global_conf
 from services.postgres import postgres_service
+from templates.database_schema import POSTGRES_QUERY
 
 
 class MetadataCollector:
+    # TODO Write documentation
     _instance = None
     _infos_schema = None
     _schema = {}
 
 
     def __new__(cls):
+        # TODO Write documentation
         if cls._instance is None:
             cls._instance = super(MetadataCollector, cls).__new__(cls)
             cls._instance._initialize()
@@ -17,26 +20,10 @@ class MetadataCollector:
 
 
     def _initialize(self):
+        # TODO Write documentation
         if (global_conf.get("DB_EGINE") == "PostgreSQL"):
             schema = global_conf.get('DB_POSTGRES_DEFAULT_SCHEMA')
-            self._infos_schema = f"""
-                                    SELECT 
-                                        cols.table_schema,
-                                        cols.table_name,
-                                        cols.column_name,
-                                        cols.is_nullable,
-                                        cols.data_type,
-                                        pgd.description AS column_comment
-                                    FROM information_schema.columns AS cols
-                                    LEFT JOIN pg_catalog.pg_statio_all_tables AS st ON 
-                                        cols.table_schema = st.schemaname 
-                                        AND cols.table_name = st.relname
-                                    LEFT JOIN pg_catalog.pg_description AS pgd ON 
-                                        pgd.objoid = st.relid 
-                                        AND pgd.objsubid = cols.ordinal_position
-                                    WHERE cols.table_schema = '{schema}'
-                                    ORDER BY cols.table_name, cols.ordinal_position
-                                """
+            self._infos_schema = POSTGRES_QUERY.format(schema=schema)
             self._extract_schema_from_postgres()
         else:
             raise Exception("Sorry, please define query engine") 
@@ -66,7 +53,6 @@ class MetadataCollector:
                 )
         
         cursor.close()
-        conn.close()
 
         # Save in cache
         with open(global_conf.get("DATA_SCHEMA_CACHE"), "w") as f:
@@ -75,10 +61,12 @@ class MetadataCollector:
     
 
     def get_schema(self):
+        # TODO Write documentation
         return self._schema
     
 
     def reload_schema(self):
+        # TODO Write documentation
         self._extract_schema_from_postgres()
         return self.get_schema()
 

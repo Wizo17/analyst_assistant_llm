@@ -13,4 +13,5 @@ ollama
 pydantic
 sqlalchemy
 pandas
+sqlparse
 crewai

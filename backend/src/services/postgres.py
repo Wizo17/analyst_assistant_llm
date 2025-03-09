@@ -12,17 +12,22 @@ DB_POSTGRES_DEFAULT_SCHEMA = global_conf.get("DB_POSTGRES_DEFAULT_SCHEMA")
 
 
 class PostgresService:
+    # TODO Write documentation
     _instance = None
     _conn_string = None
     _conn = None
 
+
     def __new__(cls):
+        # TODO Write documentation
         if cls._instance is None:
             cls._instance = super(PostgresService, cls).__new__(cls)
             cls._instance._initialize()
         return cls._instance
     
+
     def _initialize(self):
+        # TODO Write documentation
         self._conn_string = f"postgresql+psycopg2://{DB_POSTGRES_USER}:{DB_POSTGRES_PASSWORD}@{DB_POSTGRES_HOST}:{DB_POSTGRES_PORT}/{DB_POSTGRES_NAME}"
 
         try:
@@ -37,11 +42,22 @@ class PostgresService:
         except Exception as e:
             log_message("ERROR", f"Connection to postgres failed : {e}")
 
+
     def get_postgres_connection(self):
-        return self._conn
+        # TODO Write documentation
+        if self._conn.closed:
+            self._initialize()
+
+        return self._conn            
+
     
     def get_postgres_connection_string(self):
+        # TODO Write documentation
         return self._conn_string
+    
+
+    def close_postgres_connection(self):
+        self._conn.close() 
 
 
 postgres_service = PostgresService()

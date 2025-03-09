@@ -3,16 +3,21 @@ from dotenv import load_dotenv
 from typing import Any, Dict
 
 class Configuration:
+    # TODO Write documentation
     _instance = None
     _config: Dict[str, Any] = None
     
+
     def __new__(cls):
+        # TODO Write documentation
         if cls._instance is None:
             cls._instance = super(Configuration, cls).__new__(cls)
             cls._instance._initialize()
         return cls._instance
     
+
     def _initialize(self):
+        # TODO Write documentation
         load_dotenv()
         
         self._config = {
@@ -32,7 +37,9 @@ class Configuration:
             "DB_POSTGRES_DEFAULT_SCHEMA": os.getenv("DB_POSTGRES_DEFAULT_SCHEMA"),
         }
     
+    
     def get(self, key: str):
+        # TODO Write documentation
         """
         Retrieves a configuration value using a key
         
@@ -47,6 +54,7 @@ class Configuration:
         except (KeyError, ValueError) as e:
             #raise KeyError(f"Invalid configuration path: {path}") from e
             return ""
+
 
 # Create a single instance for import
 global_conf = Configuration()

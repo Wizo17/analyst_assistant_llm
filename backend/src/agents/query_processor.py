@@ -10,24 +10,14 @@ class QueryProcessor:
 
 
     def __init__(self, session):
-        """
-        Initialize the query processor with an existing chat session.
-        """
+        # TODO Write documentation
         self.session = session
 
         log_message("INFO", f"QueryProcessor initialized")
 
 
     def process_query(self, user_request):
-        """
-        Process a user query and return the generated SQL and explanation.
-
-        Args:
-            user_request (str): The user's request in natural language.
-
-        Returns:
-            dict: A dictionary containing the generated SQL query and explanation.
-        """
+        # TODO Write documentation
         if not user_request:
             raise ValueError("User request cannot be empty.")
 
