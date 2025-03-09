@@ -3,21 +3,30 @@ from dotenv import load_dotenv
 from typing import Any, Dict
 
 class Configuration:
-    # TODO Write documentation
+    """
+    Configuration is a singleton class responsible for loading and providing access
+    to the application's configuration settings from environment variables.
+    """
     _instance = None
     _config: Dict[str, Any] = None
-    
 
     def __new__(cls):
-        # TODO Write documentation
+        """
+        Create a new instance of the Configuration class if one does not already exist.
+
+        Returns:
+            Configuration: The singleton instance of the Configuration class.
+        """
         if cls._instance is None:
             cls._instance = super(Configuration, cls).__new__(cls)
             cls._instance._initialize()
         return cls._instance
-    
 
     def _initialize(self):
-        # TODO Write documentation
+        """
+        Initialize the Configuration instance by loading environment variables
+        and storing them in a dictionary.
+        """
         load_dotenv()
         
         self._config = {
@@ -41,26 +50,23 @@ class Configuration:
             "API_HOST": os.getenv("API_HOST"),
             "API_PORT": os.getenv("API_PORT"),
         }
-    
-    
-    def get(self, key: str):
-        # TODO Write documentation
+
+    def get(self, key: str) -> Any:
         """
-        Retrieves a configuration value using a key
-        
+        Get the value of a configuration setting by key.
+
         Args:
-            key: Access key
-            
+            key (str): The key of the configuration setting.
+
         Returns:
-            The requested configuration value
+            Any: The value of the configuration setting, or an empty string if the key is not found.
         """
         try:
             return self._config[key]
         except (KeyError, ValueError) as e:
-            #raise KeyError(f"Invalid configuration path: {path}") from e
+            log_message("ERROR", f"Invalid configuration key: {key}")
             return ""
 
 
 # Create a single instance for import
 global_conf = Configuration()
-

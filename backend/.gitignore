@@ -3,6 +3,7 @@ env/
 logs/
 data/tests/*
 data/export/*
+data/schema/*
 
 __pycache__/ 
 **/__pycache__/

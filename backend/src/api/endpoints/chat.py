@@ -27,8 +27,13 @@ sessions = {}
 
 @router.post("/init")
 def init_chat():
-    # TODO Implement ->> def init_chat(request: InitChat):
-    log_message("INFO", f"Access url /chat/init/")
+    """
+    Initialize a new chat session.
+
+    Returns:
+        dict: A dictionary containing the session ID.
+    """
+    log_message("INFO", "Accessed URL /chat/init/")
     try:
         session = ChatSession()
         processor = QueryProcessor(session)
@@ -47,15 +52,24 @@ def init_chat():
 
         return {"session_id": session_id}
     except Exception as e:
+        log_message("ERROR", f"Failed to initialize chat session: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
     
 
 
 @router.post("/query", response_model=QueryResponse)
 def process_query(request: QueryRequest):
-    # TODO Write documentation
-    log_message("INFO", f"Access url /chat/query/")
-    log_message("INFO", f"Request data : {request}")
+    """
+    Process a user query to generate SQL, validate it, execute it, and provide explanations.
+
+    Args:
+        request (QueryRequest): The request containing the user query and other parameters.
+
+    Returns:
+        QueryResponse: The response containing the SQL query, explanations, and download link.
+    """
+    log_message("INFO", "Accessed URL /chat/query/")
+    log_message("INFO", f"Request data: {request}")
     try:
         session_data = sessions.get(request.session_id)
         if not session_data:
@@ -80,12 +94,9 @@ def process_query(request: QueryRequest):
 
             # Extract sample
             df_sample = df_data_result.head(int(global_conf.get("MAX_ROWS_TO_LLM")))
-            # df_sample = df.sample(n=min(int(global_conf.get("MAX_ROWS_TO_LLM")), len(df)))
 
             # Format sample
             data_sample = df_sample.to_json(orient="records", lines=False, indent=2)
-            # data_sample = df_sample.to_csv(index=False)
-            # data_sample = df_sample.to_string(index=False)
 
             # Generate explanation
             analysis = data_analyst.explain_results(request.query, data_sample, request.explanation_full)
@@ -101,6 +112,7 @@ def process_query(request: QueryRequest):
                 download_link=file_path
             )
         else:
+            log_message("ERROR", "SQL query validation failed.")
             return QueryResponse(
                 user_query=request.query,
                 sql_query="",
@@ -110,15 +122,23 @@ def process_query(request: QueryRequest):
             )
 
     except Exception as e:
-        log_message("ERROR", f"url: chat/query: {str(e)}")
+        log_message("ERROR", f"Error processing query: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/download/")
 def get_result(request: DownloadFileDataRequest):
-    # TODO Write documentation
-    log_message("INFO", f"Access url /chat/download/")
-    log_message("INFO", f"Request data : {request}")
+    """
+    Download the result file for a given session.
+
+    Args:
+        request (DownloadFileDataRequest): The request containing the session ID and file path.
+
+    Returns:
+        FileResponse: The response containing the file to be downloaded.
+    """
+    log_message("INFO", "Accessed URL /chat/download/")
+    log_message("INFO", f"Request data: {request}")
     session_data = sessions.get(request.session_id)
     if not session_data:
         log_message("ERROR", f"Session {request.session_id} not found.")
@@ -127,6 +147,5 @@ def get_result(request: DownloadFileDataRequest):
     if os.path.exists(request.file_path):
         return FileResponse(request.file_path)
     else:
-        log_message("ERROR", f"The user of session {request.session_id} attempts to download the file {request.file_path}")
-        raise HTTPException(status_code=404, detail="Ressource don't exist.")
-
+        log_message("ERROR", f"File not found for session {request.session_id}: {request.file_path}")
+        raise HTTPException(status_code=404, detail="Resource does not exist.")

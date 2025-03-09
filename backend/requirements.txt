@@ -14,4 +14,3 @@ pydantic
 sqlalchemy
 pandas
 sqlparse
-crewai

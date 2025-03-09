@@ -11,6 +11,8 @@ from config.global_conf import global_conf
 if __name__ == "__main__":
 
     chat_session = ChatSession()
+    chat_session2 = ChatSession()
+
     processor = QueryProcessor(chat_session)
     sql_validator = SQLValidator()
     sql_executor = SQLExecutor()

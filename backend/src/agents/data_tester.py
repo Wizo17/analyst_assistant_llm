@@ -2,6 +2,7 @@ from utils.logger import log_message
 
 
 class DataTester:
+    # TODO Implemet class to test data
     # TODO Write documentation
 
     def __init__(self):

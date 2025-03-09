@@ -5,19 +5,32 @@ from utils.logger import log_message
 
 
 class QueryProcessor:
-    # TODO Write documentation
+    """
+    QueryProcessor is responsible for processing user requests
+    and generating queries using a language model session.
+    """
     session = None
 
-
     def __init__(self, session):
-        # TODO Write documentation
-        self.session = session
+        """
+        Initialize the QueryProcessor with a session.
 
+        Args:
+            session: The session object used to interact with the language model.
+        """
+        self.session = session
         log_message("INFO", f"QueryProcessor initialized")
 
-
     def process_query(self, user_request):
-        # TODO Write documentation
+        """
+        Process the user request to generate a query and explanation.
+
+        Args:
+            user_request (str): The request provided by the user.
+
+        Returns:
+            dict: A dictionary containing the generated query and explanation, or an error message if an error occurred.
+        """
         if not user_request:
             raise ValueError("User request cannot be empty.")
 
@@ -36,7 +49,7 @@ class QueryProcessor:
             if not output:
                 raise Exception("No response from the model.")
 
-            # # Format the output as JSON
+            # Format the output as JSON
             output_content = output[-1].content
             output_formated = output_content.replace("```", "")
             output_formated = output_formated.replace("json", "")
@@ -53,4 +66,3 @@ class QueryProcessor:
                 "query": None,
                 "explanation": f"An error occurred: {str(e)}"
             }
-

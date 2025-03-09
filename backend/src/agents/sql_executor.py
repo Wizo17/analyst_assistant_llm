@@ -8,24 +8,39 @@ from services.postgres import postgres_service
 
 
 class SQLExecutor:
-    # TODO Write documentation
+    """
+    SQLExecutor is responsible for executing SQL queries on a database
+    and returning the results in various formats.
+    """
     db_connection = None
 
-
     def __init__(self, db_connection=None):
-        # TODO Write documentation
+        """
+        Initialize the SQLExecutor with a database connection.
+
+        Args:
+            db_connection: The database connection object. If not provided, it will be created based on the global configuration.
+        """
         if db_connection:
             self.db_connection = db_connection
         elif global_conf.get("DB_EGINE") == "PostgreSQL":
             self.db_connection = postgres_service.get_postgres_connection()
         else:
-            raise Exception("Sorry, please define connection or query engine") 
+            raise Exception("Sorry, please define connection or query engine")
         
         log_message("INFO", f"SQLExecutor initialized")
 
-
     def _execute_postgres_query(self, sql_query, format='df'):
-        # TODO Write documentation
+        """
+        Execute a PostgreSQL query and return the results in the specified format.
+
+        Args:
+            sql_query (str): The SQL query to be executed.
+            format (str): The format of the results ('json', 'csv', 'df').
+
+        Returns:
+            The query results in the specified format, or None if an error occurred.
+        """
         if not sql_query:
             raise ValueError("SQL query cannot be empty.")
         
@@ -67,15 +82,22 @@ class SQLExecutor:
         except Exception as e:
             log_message("ERROR", f"Error during query execution: {str(e)}")
             return None
-        
 
     def execute_query(self, sql_query, format='df'):
-        # TODO Write documentation
+        """
+        Execute a SQL query and return the results in the specified format.
+
+        Args:
+            sql_query (str): The SQL query to be executed.
+            format (str): The format of the results ('json', 'csv', 'df').
+
+        Returns:
+            The query results in the specified format, or None if an error occurred.
+        """
         if format not in ['json', 'csv', 'df']:
             raise ValueError(f"Format {format} not supported.")
         
         if global_conf.get("DB_EGINE") == "PostgreSQL":
             return self._execute_postgres_query(sql_query, format)
         else:
-            raise Exception("Sorry, query engine is not supported") 
-        
+            raise Exception("Sorry, query engine is not supported")
