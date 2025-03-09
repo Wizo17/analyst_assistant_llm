@@ -42,7 +42,7 @@ class SQLValidator:
 
     def is_safe_query(self, query):
         # TODO Write documentation
-        dangerous_keywords = ["DROP", "INSERT", "UPDATE", "TRUNCATE", "DELETE", "ALTER", "--", ";--", "/*", "*/", ";"]
+        dangerous_keywords = ["DROP", "INSERT", "UPDATE", "TRUNCATE", "DELETE", "ALTER", "--", ";--", "/*", "*/"]
         query_upper = query.upper()
         
         for keyword in dangerous_keywords:

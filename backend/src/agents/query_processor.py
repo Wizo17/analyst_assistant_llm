@@ -53,3 +53,4 @@ class QueryProcessor:
                 "query": None,
                 "explanation": f"An error occurred: {str(e)}"
             }
+
