@@ -23,7 +23,11 @@ Ressources uses:
 
 ## Install
 
-Coming soon
+* Install [RUST](https://rustup.rs/)
+* On Windows [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/fr/visual-cpp-build-tools/)
+* Python <= 3.12
+* Coming soon
+
 
 ### Requirements
 
