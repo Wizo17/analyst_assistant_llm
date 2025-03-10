@@ -1,53 +1,53 @@
-# LLM assistant for data analysis
+# Assistant for data analysis
 
-The Intelligent SQL Assistant is a solution enabling analysts to ask questions in natural language and obtain answers, accompanied by detailed explanations.
+## Table of Contents
+- [Introduction](#introduction)
+- [Backend](#backend)
+- [Frontend](#frontend)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
+## Introduction
+Analyst Assistant LLM is a project designed to assist analysts by leveraging large language models. This README provides an overview of the project, including setup instructions for both the backend and frontend components.
 
-## Build with
+## Backend
+The backend is responsible for handling data processing and serving the API endpoints. It is built using: Python, LangChain, Ollama, Postgres, FastAPI.
 
-The project uses:
-* [Python](https://www.python.org/)
-* [LangChain](https://www.langchain.com/)
-* [CrewAI](https://www.crewai.com/)
-* [Ollama](https://ollama.com/)
-* [Postgres](https://www.postgresql.org/)
+### Features
+- Data processing
+- API endpoints for frontend interaction
 
-Ressources uses:
-* [LLM sqlcoder](https://ollama.com/library/sqlcoder)
-* [LLM Mistral 7b](https://ollama.com/library/mistral)
-
-
-## How it works
-* Coming soon
-
-
-## Install
-
-* Install [RUST](https://rustup.rs/)
-* On Windows [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/fr/visual-cpp-build-tools/)
-* Python <= 3.12
-* Coming soon
+### Setup
+For detailed information, refer to the [backend README](backend/readme.md).
 
 
-### Requirements
+## Frontend
+The frontend is a chatbot application that interacts with the backend to provide a user-friendly interface. It is built using: ReactJS.
 
-* Good computer (good graphic card, min 8go ram)
-* Python
-* Ollama
-* Postgres
+### Features
+- User-friendly chatbot interface
+- Real-time interaction with the backend
 
+### Setup
+For  detailed information, refer to the [frontend README](front/chatbot-app/readme.md).
 
-### Deployment
+## Installation
+To install the project, follow the setup instructions for both the backend and frontend components.
 
-1. Coming soon
-
+## Usage
+Once both the backend and frontend are set up and running, you can access the chatbot application through your web browser and start interacting with the Analyst Assistant LLM.
 
 ## Versions
-**LTS :** [0.0.1](https://github.com/Wizo17/analyst_assistant_llm)
+**LTS:** [1.0.0](https://github.com/Wizo17/analyst_assistant_llm)
 
-## Auteurs
+## Authors
+
 * [@wizo17](https://github.com/Wizo17)
 
-## License
-This project is licensed by  ``MIT`` - see [LICENSE](LICENSE) for more informations.
+## Contributing
+Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) for more information.
 
+## License
+This project is licensed under the [MIT License](LICENSE).
