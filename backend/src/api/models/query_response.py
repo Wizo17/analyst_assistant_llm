@@ -17,3 +17,5 @@ class QueryResponse(BaseModel):
     sql_explanation: str
     business_explanation: str
     download_link: str
+    query_time: str
+    response_time: str

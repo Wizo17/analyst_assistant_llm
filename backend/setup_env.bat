@@ -1,5 +1,5 @@
 @echo off
-echo Creating the virtual environment.
+echo Creating the virtual environment for api.
 python -m venv venv
 
 echo Environment activation

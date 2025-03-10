@@ -30,9 +30,16 @@ class Configuration:
         load_dotenv()
         
         self._config = {
+            "API_NAME": os.getenv("API_NAME"),
+            "API_VERSION": os.getenv("API_VERSION"),
+            "API_DESCRIPTION": os.getenv("API_DESCRIPTION"),
+
             "LLM_PROVIDER": os.getenv("LLM_PROVIDER"),
             "LLM_MODEL": os.getenv("LLM_MODEL"),
+
             "DB_EGINE": os.getenv("DB_EGINE"),
+            "DB_CONTENT": os.getenv("DB_CONTENT"),
+            
             "DATA_SCHEMA_CACHE": os.getenv("DATA_SCHEMA_CACHE"),
             "DATA_FILE_EXPORT_PATH": os.getenv("DATA_FILE_EXPORT_PATH"),
             "MAX_ROWS_TO_LLM": os.getenv("MAX_ROWS_TO_LLM"),

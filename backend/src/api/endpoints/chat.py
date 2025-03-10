@@ -1,3 +1,4 @@
+from datetime import datetime
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import FileResponse
 import os
@@ -23,6 +24,46 @@ fernet = Fernet(key)
 
 # In-memory storage for sessions
 sessions = {}
+
+
+@router.get("/infos")
+def get_api_info():
+    """
+    Retrieve API information from global configuration.
+
+    This function logs an informational message when accessed and attempts to
+    return a dictionary containing various API details such as name, version,
+    description, LLM provider, LLM model, database engine, and database content.
+    If an error occurs during this process, it logs an error message and raises
+    an HTTPException with a status code of 500.
+
+    Returns:
+        dict: A dictionary containing the following keys:
+            - api_name (str): The name of the API.
+            - api_version (str): The version of the API.
+            - api_description (str): A description of the API.
+            - llm_provider (str): The provider of the LLM.
+            - llm_model (str): The model of the LLM.
+            - db_engine (str): The database engine used.
+            - db_content (str): The content of the database.
+
+    Raises:
+        HTTPException: If an error occurs while retrieving the API information.
+    """
+    log_message("INFO", "Accessed URL /chat/infos")
+    try:
+        return {
+            "api_name": global_conf.get("API_NAME"),
+            "api_version": global_conf.get("API_VERSION"),
+            "api_description": global_conf.get("API_DESCRIPTION"),
+            "llm_provider": global_conf.get("LLM_PROVIDER"),
+            "llm_model": global_conf.get("LLM_MODEL"),
+            "db_engine": global_conf.get("DB_EGINE"),
+            "db_content": global_conf.get("DB_CONTENT")
+            }
+    except Exception as e:
+        log_message("ERROR", f"Failed to retrieve api informations: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/init")
@@ -71,6 +112,7 @@ def process_query(request: QueryRequest):
     log_message("INFO", "Accessed URL /chat/query/")
     log_message("INFO", f"Request data: {request}")
     try:
+        query_time = datetime.now().strftime("%I:%M %p")
         session_data = sessions.get(request.session_id)
         if not session_data:
             raise HTTPException(status_code=404, detail="Session not found.")
@@ -109,7 +151,9 @@ def process_query(request: QueryRequest):
                 sql_query=sql_query,
                 sql_explanation=response['explanation'],
                 business_explanation=analysis,
-                download_link=file_path
+                download_link=file_path,
+                query_time=query_time,
+                response_time=datetime.now().strftime("%I:%M %p")
             )
         else:
             log_message("ERROR", "SQL query validation failed.")
@@ -118,7 +162,9 @@ def process_query(request: QueryRequest):
                 sql_query="",
                 sql_explanation="Impossible to answer the query.",
                 business_explanation="Impossible to answer the query.",
-                download_link=""
+                download_link="",
+                query_time=query_time,
+                response_time=datetime.now().strftime("%I:%M %p")
             )
 
     except Exception as e:

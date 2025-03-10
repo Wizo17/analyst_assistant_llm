@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="analyst_assistant_llm",
+    name="analyst_assistant_llm_api",
     version="1.0.0",
     author="William ZOUNON",
     author_email="williamzounon@gmail.com",
