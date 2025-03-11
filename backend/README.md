@@ -29,7 +29,7 @@ The project uses:
 1. Clone this repository:
 ```bash
 git clone https://github.com/Wizo17/analyst_assistant_llm
-cd backend
+cd analyst_assistant_llm/backend
 ```
 
 2. Create a virtual environment:
@@ -39,6 +39,8 @@ python -m venv venv
 
 3. Activate the virtual environment:
 ```bash
+# Unix / MacOS
+source venv/bin/activate
 # Windows
 venv\Scripts\activate
 ```
@@ -47,14 +49,24 @@ venv\Scripts\activate
 ```bash
 pip install -r requirements.txt
 ```
-<em>If you have a problem, use python 3.12.0 and requirements_all.txt</em>
+<em>If you have some issues, use python 3.12.0 and requirements_all.txt</em>
+<em>You can also install [RUST](https://rustup.rs/) and [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/fr/visual-cpp-build-tools/) on Windows</em>
+
+
+5. Create export and schema folder:
+```bash
+# Unix / MacOS
+mkdir data/schema data/export
+# Windows
+mkdir data\schema data\export
+```
 
 5. Create .env file:
 ```bash
 cp .env_example .env
 ```
 
-6. **Update .env file**:
+6. **Update .env file**
 
 ## Running the API
 

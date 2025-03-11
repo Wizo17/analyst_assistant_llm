@@ -62,7 +62,6 @@ class MetadataCollector:
                 )
             
             cursor.close()
-            conn.close()
 
             # Save in cache
             with open(global_conf.get("DATA_SCHEMA_CACHE"), "w") as f:

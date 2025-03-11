@@ -58,7 +58,7 @@ class PostgresService:
         Returns:
             connection: The PostgreSQL connection object.
         """
-        if self._conn.closed:
+        if self._conn is None or self._conn.closed:
             self._initialize()
 
         return self._conn
@@ -76,7 +76,8 @@ class PostgresService:
         """
         Close the current PostgreSQL connection.
         """
-        self._conn.close()
+        if self._conn is not None:
+            self._conn.close()
         log_message("INFO", "PostgreSQL connection closed.")
 
 
