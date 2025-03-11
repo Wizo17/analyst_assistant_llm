@@ -22,7 +22,7 @@ The Intelligent SQL Assistant is a solution enabling analysts to ask questions i
 1. Clone this repository:
 ```bash
 git clone https://github.com/Wizo17/analyst_assistant_llm
-cd front/chatbot-app
+cd analyst_assistant_llm/front/chatbot-app
 ```
 
 2. Install dependencies:

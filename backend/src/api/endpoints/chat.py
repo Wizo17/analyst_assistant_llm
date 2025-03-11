@@ -12,6 +12,7 @@ from agents.data_analyst import DataAnalyst
 from api.models.init_chat import InitChat
 from api.models.query_request import DownloadFileDataRequest, QueryRequest
 from api.models.query_response import QueryResponse
+from services.postgres import postgres_service
 from config.global_conf import global_conf
 from utils.logger import log_message
 
@@ -75,6 +76,10 @@ def init_chat():
         dict: A dictionary containing the session ID.
     """
     log_message("INFO", "Accessed URL /chat/init/")
+    if not postgres_service.get_postgres_connection():
+        log_message("ERROR", "Database is unavailable.")
+        raise HTTPException(status_code=500, detail="Database is unavailable.")
+        
     try:
         session = ChatSession()
         processor = QueryProcessor(session)
