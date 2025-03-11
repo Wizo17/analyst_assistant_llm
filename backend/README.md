@@ -21,7 +21,10 @@ The project uses:
 - ollama (for local llm model)
 - Postgres
     - If you want to test, you can use the GTFS data from [Ile-De-France Mobilité](https://www.data.gouv.fr/fr/datasets/horaires-prevus-sur-les-lignes-de-transport-en-commun-dile-de-france-gtfs-datahub/).
-    - The database schema and an import script can be found [here](data/base_gtfs_test/base_analyst_llm_export.sql)
+    - The database schema and an import script can be found here:
+        - [base_analyst_llm_export.sql](data/base_gtfs_test/base_analyst_llm_export.sql)
+        - [comment_columns.sql](data/base_gtfs_test/comment_columns.sql)
+        - [import_test_data.py](data/base_gtfs_test/import_test_data.py)
 - **An LLM isn't smarter than you are, so you have to tell him what you want. There has to be a description of your columns in your database tables.**
 
 ### Installation
@@ -67,6 +70,11 @@ cp .env_example .env
 ```
 
 6. **Update .env file**
+
+7. Create logs folder:
+```bash
+mkdir logs
+```
 
 ## Running the API
 

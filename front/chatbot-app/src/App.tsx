@@ -9,8 +9,8 @@ const AppContainer = styled.div`
   display: flex;
   height: 100vh;
   width: 100%;
-  background-color: #343541;
-  color: #fff;
+  background-color: #f0f4f8; /* Bleu très clair pour le fond principal */
+  color: #2c3e50; /* Bleu foncé pour le texte */
 `;
 
 const AppContent = () => {

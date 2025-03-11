@@ -29,6 +29,9 @@ class ChatSession:
         self.provider = provider if provider != "default" else global_conf.get("LLM_PROVIDER")
         self.model = model if model != "default" else global_conf.get("LLM_MODEL")
 
+        if self.provider not in ["openai", "ollama"]:
+            raise Exception(f"Invalid LLM provider: {self.provider}")
+
         model_providers = {
             "openai": lambda: ChatOpenAI(model=self.model),
             "anthropic": lambda: ChatAnthropic(model=self.model),
@@ -61,7 +64,7 @@ class ChatSession:
             response = self.llm.invoke(state["messages"])
             return {"messages": response}
         except Exception as e:
-            log_message("ERROR", f"Error invoking LLM: {traceback.format_exc()}")
+            log_message("ERROR", f"Error invoking LLM: {str(e)}")
             return {"messages": f"Error: {str(e)}"}
 
     def _load_schema(self):
@@ -88,7 +91,7 @@ class ChatSession:
             self.graph.invoke({"messages": input_messages}, self.config)
             return True
         except Exception as e:
-            log_message("ERROR", f"An error occurred when sending schema to the model. {traceback.format_exc()}")
+            log_message("ERROR", f"An error occurred when sending schema to the model. {str(e)}")
             return False
 
     def update_schema(self):
@@ -108,5 +111,5 @@ class ChatSession:
         try:
             return self.graph.invoke({"messages": input_messages}, self.config)
         except Exception as e:
-            log_message("ERROR", f"Error processing query: {traceback.format_exc()}")
+            log_message("ERROR", f"Error processing query: {str(e)}")
             return {"messages": f"Error: {str(e)}"}

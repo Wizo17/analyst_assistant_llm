@@ -139,38 +139,39 @@ def process_query(request: QueryRequest):
             # Execute SQL
             df_data_result = sql_executor.execute_query(sql_query)
 
-            # Extract sample
-            df_sample = df_data_result.head(int(global_conf.get("MAX_ROWS_TO_LLM")))
+            if df_data_result is not None:
+                # Extract sample
+                df_sample = df_data_result.head(int(global_conf.get("MAX_ROWS_TO_LLM")))
 
-            # Format sample
-            data_sample = df_sample.to_json(orient="records", lines=False, indent=2)
+                # Format sample
+                data_sample = df_sample.to_json(orient="records", lines=False, indent=2)
 
-            # Generate explanation
-            analysis = data_analyst.explain_results(request.query, data_sample, request.explanation_full)
+                # Generate explanation
+                analysis = data_analyst.explain_results(request.query, data_sample, request.explanation_full)
 
-            # Save file
-            file_path = export_dataframe_to_file(df_data_result, request.output_format, request.full_data)
+                # Save file
+                file_path = export_dataframe_to_file(df_data_result, request.output_format, request.full_data)
 
-            return QueryResponse(
-                user_query=request.query,
-                sql_query=sql_query,
-                sql_explanation=response['explanation'],
-                business_explanation=analysis,
-                download_link=file_path,
-                query_time=query_time,
-                response_time=datetime.now().strftime("%I:%M %p")
-            )
-        else:
-            log_message("ERROR", "SQL query validation failed.")
-            return QueryResponse(
-                user_query=request.query,
-                sql_query="",
-                sql_explanation="Impossible to answer the query.",
-                business_explanation="Impossible to answer the query.",
-                download_link="",
-                query_time=query_time,
-                response_time=datetime.now().strftime("%I:%M %p")
-            )
+                return QueryResponse(
+                    user_query=request.query,
+                    sql_query=sql_query,
+                    sql_explanation=response['explanation'],
+                    business_explanation=analysis,
+                    download_link=file_path,
+                    query_time=query_time,
+                    response_time=datetime.now().strftime("%I:%M %p")
+                )
+
+        log_message("ERROR", "SQL query validation or execution failed or the model was unable to respond to the query.")
+        return QueryResponse(
+            user_query=request.query,
+            sql_query="",
+            sql_explanation="Impossible to answer the query or the model was unable to respond to the query.",
+            business_explanation="Impossible to answer the query or the model was unable to respond to the query.",
+            download_link="",
+            query_time=query_time,
+            response_time=datetime.now().strftime("%I:%M %p")
+        )
 
     except Exception as e:
         log_message("ERROR", f"Error processing query: {str(e)}")
