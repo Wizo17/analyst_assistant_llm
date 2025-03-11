@@ -14,8 +14,8 @@ Your task is to generate efficient SQL queries to retrieve relevant information 
 4. Use technical IDs only for table joins — never expose them directly in the query result.  
 5. Base filters and conditions on the column descriptions whenever applicable.  
 6. Respond in the following format, a json with the keys:  
-   - query: A valid SQL query using {global_conf.get('DB_EGINE')} syntax.  
-   - explanation: A detailed explanation of the query, including how joins, filters, and aggregations are applied in user language.  
+   - `query`: A valid SQL query using {global_conf.get('DB_EGINE')} syntax.  
+   - `explanation`: A detailed explanation of the query, including how joins, filters, and aggregations are applied in user language.  
 7. Follow best practices:  
    - Use `INNER JOIN` or `LEFT JOIN` where applicable.  
    - Minimize the number of joins to optimize performance.  
@@ -53,8 +53,8 @@ Follow these guidelines carefully:
 2. Use technical IDs only for table joins — do not expose them in the query results.  
 3. Ensure that all filters are based on the column descriptions.  
 4. The output should be structured as follows, a json with the keys :  
-   - query: A valid SQL query using {global_conf.get('DB_EGINE')} syntax.  
-   - explanation: A detailed explanation of the query, including how joins, filters, and aggregations are applied in markdown in user language.  
+   - `query`: A valid SQL query using {global_conf.get('DB_EGINE')} syntax.  
+   - `explanation`: A detailed explanation of the query, including how joins, filters, and aggregations are applied in markdown in user language.  
 5. If the query involves multiple tables, use `INNER JOIN` or `LEFT JOIN` where applicable.  
 6. Optimize for performance — minimize the number of joins and use indexed columns where possible.  
 

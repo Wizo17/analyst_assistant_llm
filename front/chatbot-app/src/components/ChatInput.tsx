@@ -6,8 +6,12 @@ import { FormState } from '../types';
 
 const ChatInputContainer = styled.div`
   padding: 15px;
-  background-color: #343541;
-  border-top: 1px solid #444654;
+  background-color: #f0f4f8;
+  border-top: 1px solid #c0d6df;
+  height: 80px; /* Hauteur fixe pour correspondre à l'ApiInfoContainer */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const InputForm = styled.form`
@@ -23,42 +27,44 @@ const InputWrapper = styled.div`
 
 const TextInput = styled.textarea`
   width: 100%;
-  padding: 12px 45px 12px 15px;
+  padding: 8px 45px 8px 15px;
   border-radius: 8px;
-  border: 1px solid #565869;
-  background-color: #40414f;
-  color: #fff;
+  border: 1px solid #c0d6df;
+  background-color: white;
+  color: #2c3e50;
   font-size: 14px;
   resize: none;
-  min-height: 50px;
-  max-height: 200px;
+  min-height: 36px;
+  max-height: 36px;
   outline: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   
   &:focus {
-    border-color: #8e8ea0;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
   }
   
   &::placeholder {
-    color: #8e8ea0;
+    color: #7b8a9a;
   }
 `;
 
 const SendButton = styled.button`
   position: absolute;
   right: 10px;
-  bottom: 10px;
+  top: 50%; /* Centrer verticalement */
+  transform: translateY(-50%); /* Centrer verticalement */
   background: none;
   border: none;
-  color: #8e8ea0;
+  color: #4a90e2;
   cursor: pointer;
-  font-size: 20px;
   
   &:hover {
-    color: #fff;
+    color: #357ABD;
   }
   
   &:disabled {
-    color: #565869;
+    color: #a3c2e6;
     cursor: not-allowed;
   }
 `;
@@ -67,6 +73,7 @@ const ToggleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 5px;
+  margin-bottom: 5px;
 `;
 
 const ToggleGroup = styled.div`
@@ -84,18 +91,18 @@ const ToggleItem = styled.div`
 
 const ToggleLabel = styled.span`
   font-size: 12px;
-  color: #8e8ea0;
+  color: #7b8a9a;
 `;
 
 // Create styled components for the toggle icons
 const ToggleOn = styled.div`
-  color: #10a37f;
+  color: #4a90e2; /* Bleu vif pour les toggles actifs */
   display: flex;
   align-items: center;
 `;
 
 const ToggleOff = styled.div`
-  color: #8e8ea0;
+  color: #7b8a9a; /* Gris bleuté pour les toggles inactifs */
   display: flex;
   align-items: center;
 `;

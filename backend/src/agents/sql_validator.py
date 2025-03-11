@@ -107,4 +107,5 @@ class SQLValidator:
         Returns:
             bool: True if the query passes all tests, False otherwise.
         """
+        log_message("INFO", f"The query to be validated is: {query}")
         return self.validate_syntax(query) and self.is_safe_query(query) and self.validate_execution(query)

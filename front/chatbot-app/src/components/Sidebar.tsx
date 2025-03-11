@@ -7,20 +7,20 @@ import { useChatContext } from '../context/ChatContext';
 const SidebarContainer = styled.div`
   width: 260px;
   height: 100%;
-  background-color: #202123;
-  color: #fff;
+  background-color: #e1e8ed;
+  color: #2c3e50;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #444654;
+  border-right: 1px solid #c0d6df;
 `;
 
 const NewChatButton = styled.button`
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #343541;
-  color: #fff;
-  border: 1px solid #565869;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
   border-radius: 5px;
   padding: 12px 16px;
   margin: 15px;
@@ -29,7 +29,12 @@ const NewChatButton = styled.button`
   font-size: 14px;
   
   &:hover {
-    background-color: #40414f;
+    background-color: #357ABD;
+  }
+  
+  &:disabled {
+    background-color: #a3c2e6;
+    cursor: not-allowed;
   }
 `;
 
@@ -58,13 +63,13 @@ const SessionItem = styled.div<{ active: boolean }>`
   align-items: center;
   padding: 10px 15px;
   cursor: pointer;
-  background-color: ${props => props.active ? '#343541' : 'transparent'};
+  background-color: ${props => props.active ? '#c0d6df' : 'transparent'};
   border-radius: 5px;
   margin: 5px 0;
   transition: background-color 0.2s;
   
   &:hover {
-    background-color: #343541;
+    background-color: ${props => props.active ? '#c0d6df' : '#d1e2eb'};
     
     ${SessionActions} {
       opacity: 1;
@@ -76,7 +81,7 @@ const SessionIcon = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
-  color: #8e8ea0;
+  color: #4a90e2;
 `;
 
 const SessionName = styled.div`
@@ -88,19 +93,23 @@ const SessionName = styled.div`
 
 const SessionNameInput = styled.input`
   flex: 1;
-  background-color: #444654;
-  border: none;
-  color: white;
+  background-color: #f0f4f8;
+  border: 1px solid #c0d6df;
+  color: #2c3e50;
   padding: 5px;
   border-radius: 3px;
   outline: none;
   font-size: 14px;
+  
+  &:focus {
+    border-color: #4a90e2;
+  }
 `;
 
 const ActionButton = styled.button`
   background: none;
   border: none;
-  color: #8e8ea0;
+  color: #4a90e2;
   cursor: pointer;
   padding: 5px;
   margin-left: 5px;
@@ -109,28 +118,31 @@ const ActionButton = styled.button`
   justify-content: center;
   
   &:hover {
-    color: white;
+    color: #357ABD;
   }
 `;
 
 const ApiInfoContainer = styled.div`
   padding: 15px;
-  border-top: 1px solid #444654;
+  border-top: 1px solid #c0d6df;
   font-size: 12px;
+  background-color: #e1e8ed;
+  margin-top: auto;
+  height: 80px;
 `;
 
 const ApiInfoItem = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 `;
 
 const ApiInfoLabel = styled.span`
-  color: #8e8ea0;
+  color: #7b8a9a;
 `;
 
 const ApiInfoValue = styled.span`
-  color: #fff;
+  color: #4a90e2;
   font-weight: 500;
 `;
 

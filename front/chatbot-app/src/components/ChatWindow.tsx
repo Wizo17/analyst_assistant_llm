@@ -10,13 +10,14 @@ const ChatWindowContainer = styled.div`
   flex-direction: column;
   height: 100%;
   flex: 1;
-  background-color: #343541;
+  background-color: #f0f4f8;
 `;
 
 const MessagesContainer = styled.div`
   flex: 1;
   overflow-y: auto;
   scroll-behavior: smooth;
+  padding: 0 10px;
 `;
 
 const WelcomeMessage = styled.div`
@@ -25,7 +26,7 @@ const WelcomeMessage = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #8e8ea0;
+  color: #7b8a9a;
   text-align: center;
   padding: 0 20px;
 `;
@@ -33,7 +34,7 @@ const WelcomeMessage = styled.div`
 const WelcomeTitle = styled.h2`
   font-size: 24px;
   margin-bottom: 10px;
-  color: #fff;
+  color: #2c3e50;
 `;
 
 const WelcomeText = styled.p`
@@ -47,7 +48,7 @@ const LoadingIndicator = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  color: #8e8ea0;
+  color: #4a90e2;
   
   &::after {
     content: '';
@@ -66,13 +67,13 @@ const LoadingIndicator = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-  background-color: rgba(255, 0, 0, 0.1);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  color: #ff6b6b;
+  background-color: #fce4e4;
+  color: #e74c3c;
   padding: 15px;
-  margin: 20px;
+  margin: 15px;
   border-radius: 5px;
   text-align: center;
+  border: 1px solid #f7d6d6;
 `;
 
 const ChatWindow: React.FC = () => {
@@ -109,9 +110,9 @@ const ChatWindow: React.FC = () => {
       <MessagesContainer>
         {activeSessionId && activeMessages.length === 0 && !isLoading && !error && (
           <WelcomeMessage>
-            <WelcomeTitle>Bienvenue dans l'assistant d'analyse</WelcomeTitle>
+            <WelcomeTitle>Welcome to the Analysis Assistant</WelcomeTitle>
             <WelcomeText>
-              Posez vos questions sur les données et obtenez des réponses détaillées avec des explications SQL.
+            Ask your questions and get detailed answers with SQL explanations and code — no SQL expertise needed.
             </WelcomeText>
           </WelcomeMessage>
         )}
@@ -123,7 +124,7 @@ const ChatWindow: React.FC = () => {
         ))}
         
         {isLoading && (
-          <LoadingIndicator>Génération de la réponse...</LoadingIndicator>
+          <LoadingIndicator>Loading...</LoadingIndicator>
         )}
         
         <div ref={messagesEndRef} />

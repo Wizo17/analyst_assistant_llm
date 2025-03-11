@@ -6,13 +6,15 @@
 - [Frontend](#frontend)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Versions](#versions)
+- [Authors](#authors)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Introduction
-Analyst Assistant LLM is a project designed to assist analysts by leveraging large language models. 
-Assistant is a solution enabling analysts to ask questions in natural language and obtain answers, accompanied by detailed explanations.
-This README provides an overview of the project, including setup instructions for both the backend and frontend components.
+Analyst Assistant LLM is an intelligent solution designed to simplify data analysis by leveraging large language models (LLMs). With this tool, analysts can ask complex questions in natural language and receive accurate answers, complete with detailed SQL queries and insightful explanations — without needing to understand the underlying database structure.
+
+This README provides a comprehensive overview of the project, including step-by-step setup instructions for both the backend and frontend components.
 
 ## Backend
 The backend is responsible for handling data processing and serving the API endpoints. It is built using: Python, LangChain, Ollama, Postgres, FastAPI.
